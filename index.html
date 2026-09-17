@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Caja Misteriosa de Tex Fashion</title>
+    <!-- Fuentes de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,900&family=Titan+One&display=swap" rel="stylesheet">
+    <!-- Iconos FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: radial-gradient(circle at center, #002b7f 0%, #061024 70%, #020611 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .brand-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .brand-logo {
+            max-height: 70px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.6));
+        }
+
+        .brand-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2.3rem, 5.5vw, 4.5rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            background: linear-gradient(180deg, #ffffff 40%, #d4e0ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.8));
+            line-height: 1.1;
+        }
+
+        .game-title {
+            font-family: 'Titan One', cursive;
+            font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+            color: #ffb700;
+            text-shadow: 
+                3px 3px 0px #000000,
+                0px 0px 25px rgba(255, 183, 0, 0.8);
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transform: rotate(-1deg);
+        }
+
+        p.subtitle {
+            font-size: 1.1rem;
+            color: #ffffff;
+            margin-top: 10px;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+            text-align: center;
+        }
+
+        /* CARD DE INSTRUCCIONES */
+        .instructions-card {
+            background: rgba(10, 15, 29, 0.9);
+            border: 2px solid #ffb700;
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 25px 20px;
+            max-width: 580px;
+            width: 100%;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 183, 0, 0.2);
+            margin-top: 10px;
+            animation: fadeIn 0.5s ease-in-out;
+            position: relative;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .instructions-card h3 {
+            font-size: 1.3rem;
+            color: #ffb700;
+            margin-bottom: 8px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .request-code-box {
+            background: #001e59;
+            border: 1px solid #003bf0;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .social-buttons-grid {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .social-btn-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 25px;
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 0.8rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .social-btn-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .social-btn-link.tiktok { background: linear-gradient(135deg, #000000, #25f4ee, #fe2c55); }
+        .social-btn-link.instagram { background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); }
+        .social-btn-link.facebook { background: linear-gradient(135deg, #1877f2, #0d52b1); }
+
+        .btn-comprobante {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            padding: 12px 20px;
+            font-size: 0.95rem;
+            font-weight: 900;
+            border-radius: 25px;
+            cursor: pointer;
+            width: 100%;
+            text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+            margin-top: 10px;
+            transition: transform 0.2s;
+        }
+
+        .btn-comprobante:hover {
+            transform: scale(1.02);
+        }
+
+        .pin-input-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .pin-input {
+            width: 100%;
+            max-width: 320px;
+            background: #061024;
+            border: 2px solid #2a4178;
+            border-radius: 12px;
+            padding: 12px;
+            color: #ffb700;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 900;
+            text-align: center;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .pin-input:focus {
+            border-color: #ffb700;
+            box-shadow: 0 0 10px rgba(255, 183, 0, 0.4);
+        }
+
+        .btn-next {
+            background: linear-gradient(135deg, #ffb700, #ff8c00);
+            color: #000000;
+            border: 2px solid #ffffff;
+            padding: 14px 35px;
+            font-size: 1.1rem;
+            font-weight: 900;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 8px 20px rgba(255, 183, 0, 0.4);
+            text-transform: uppercase;
+            width: 100%;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .btn-next:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 25px rgba(255, 255, 255, 0.6);
+        }
+
+        .error-msg {
+            color: #ff4d4d;
+            font-size: 0.85rem;
+            text-align: center;
+            margin-top: 8px;
+            display: none;
+            font-weight: 700;
+        }
+
+        /* SECCIÓN DEL JUEGO */
+        .game-section {
+            display: none;
+            width: 100%;
+            max-width: 700px;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .box {
+            background: linear-gradient(145deg, #001e59, #001238);
+            border: 3px solid #ffb700;
+            border-radius: 20px;
+            height: 130px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3.8rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            user-select: none;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.6), inset 0 0 15px rgba(255, 183, 0, 0.15);
+        }
+
+        .box:hover {
+            transform: translateY(-6px) scale(1.03);
+            background: linear-gradient(145deg, #00297a, #001a52);
+            box-shadow: 0 15px 25px rgba(255, 183, 0, 0.4), inset 0 0 20px rgba(255, 183, 0, 0.3);
+        }
+
+        .box-bounce {
+            animation: bounce 0.6s ease;
+        }
+
+        @keyframes bounce {
+            0%   { transform: scale(1); }
+            30%  { transform: scale(1.2) translateY(-15px); }
+            50%  { transform: scale(0.9) translateY(5px); }
+            70%  { transform: scale(1.05) translateY(-5px); }
+            90%  { transform: scale(0.98) translateY(2px); }
+            100% { transform: scale(1) translateY(0); }
+        }
+
+        .box.disabled {
+            pointer-events: none;
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* MODAL Y PREMIOS */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(2, 6, 17, 0.92);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+            padding: 15px;
+        }
+
+        .modal-content {
+            background: #ffffff;
+            color: #061024;
+            padding: 25px 20px;
+            border-radius: 25px;
+            border: 3px solid #ffb700;
+            text-align: center;
+            max-width: 550px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+            animation: popIn 0.3s ease-out;
+            position: relative;
+        }
+
+        /* FORMULARIO DE COMPROBANTE */
+        .form-group {
+            text-align: left;
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: #002b7f;
+            margin-bottom: 4px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #002b7f;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+        .referrals-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        /* GRID DE PRODUCTOS Y ANIMACIÓN EXPLOSIVA EN PREMIOS */
+        .combo-grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+            perspective: 1000px;
+        }
+
+        .product-card {
+            background: linear-gradient(145deg, #ffffff, #eef2f7);
+            padding: 15px 12px;
+            border-radius: 20px;
+            border: 3px solid #ffb700;
+            width: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            position: relative;
+            opacity: 0;
+            
+            /* Animación explosiva de super rebote */
+            animation: 
+                superBounce 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
+                cardGlow 2s infinite alternate ease-in-out 0.9s;
+        }
+
+        .product-card:nth-child(1) {
+            animation-delay: 0.15s, 1.05s;
+        }
+
+        .product-card:nth-child(2) {
+            animation-delay: 0.4s, 1.3s;
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: 95px;
+            object-fit: contain;
+            filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.25));
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .product-card p {
+            font-size: 0.85rem;
+            font-weight: 900;
+            color: #002b7f;
+            margin-top: 10px;
+            text-transform: uppercase;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        /* KEYFRAMES: REBOTE EXPLOSIVO CON GIRO 3D */
+        @keyframes superBounce {
+            0% {
+                opacity: 0;
+                transform: translateY(180px) scale(0.1) rotateX(-90deg);
+            }
+            60% {
+                opacity: 1;
+                transform: translateY(-25px) scale(1.25) rotateX(10deg);
+            }
+            80% {
+                transform: translateY(10px) scale(0.92) rotateX(-5deg);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1) rotateX(0deg);
+            }
+        }
+
+        /* KEYFRAMES: RESPLANDOR DORADO Y VIBRACIÓN */
+        @keyframes cardGlow {
+            0% {
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 0 10px rgba(255, 183, 0, 0.4);
+                border-color: #ffb700;
+            }
+            100% {
+                box-shadow: 0 15px 30px rgba(255, 183, 0, 0.8), 0 0 25px rgba(255, 183, 0, 0.9);
+                border-color: #ffe600;
+                transform: translateY(-4px);
+            }
+        }
+
+        /* TITULO DE GANADOR ANIMADO */
+        .bounce-title {
+            animation: popText 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, pulseGlow 1.5s infinite alternate 0.6s;
+        }
+
+        @keyframes popText {
+            0% { opacity: 0; transform: scale(0.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.06); }
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.6); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            font-weight: 900;
+            color: #001e59;
+        }
+
+        .btn-modal {
+            background: linear-gradient(135deg, #002b7f, #001238);
+            color: #ffffff;
+            border: 2px solid #ffb700;
+            padding: 12px 28px;
+            font-size: 0.95rem;
+            font-weight: 900;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            margin: 5px;
+            box-shadow: 0 5px 15px rgba(0, 43, 127, 0.4);
+            text-transform: uppercase;
+        }
+
+        .btn-modal:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #003bf0, #001e59);
+        }
+
+        .btn-secondary {
+            background: #4a5568;
+            border-color: #cbd5e0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: #718096;
+        }
+
+        @media (max-width: 600px) {
+            .brand-logo { max-height: 50px; }
+            .grid-container { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .box { height: 110px; font-size: 3.2rem; }
+            .social-buttons-grid { flex-direction: column; }
+            .referrals-grid { grid-template-columns: 1fr; }
+            .product-card { width: 130px; padding: 10px; }
+            .product-card img { height: 80px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand-header">
+            <img src="imagenes/Mesa de trabajo 1.png" alt="Logo Tex Fashion" class="brand-logo">
+            <h1 class="brand-name">TEX FASHION</h1>
+        </div>
+        <h2 class="game-title">📦 LA CAJA MISTERIOSA 📦</h2>
+    </header>
+
+    <!-- PASO 1: BLOQUEO CON CÓDIGO DE ACCESO -->
+    <div class="instructions-card" id="instructionsCard">
+        <h3>🔑 ACCESO AL JUEGO 🔑</h3>
+        
+        <div class="request-code-box">
+            <p style="font-weight: 800; font-size: 0.95rem; color: #ffb700; margin-bottom: 8px; text-transform: uppercase; text-align: center;">
+                👥 ¡REQUISITO PARA OBTENER TU CÓDIGO!
+            </p>
+            <p style="font-size: 0.85rem; color: #ffffff; line-height: 1.4; margin-bottom: 15px; text-align: center;">
+                Trae a <strong>4 personas más</strong> a seguirnos. Cuando tus 4 referidos nos sigan, registra el comprobante o envíanos un mensaje directo con sus nombres de usuario para validar.
+            </p>
+
+            <!-- ENLACES PARA REFERIDOS -->
+            <div style="background: rgba(0, 0, 0, 0.3); border-radius: 12px; padding: 12px; margin-bottom: 12px;">
+                <p style="font-size: 0.8rem; font-weight: 700; color: #ffb700; margin-bottom: 8px;">
+                    1️⃣ Enlaces para que tus 4 referidos nos sigan:
+                </p>
+                <div class="social-buttons-grid">
+                    <a href="https://www.tiktok.com/@tex_fashion?_r=1&_t=ZS-98xZasYCW8a" target="_blank" class="social-btn-link tiktok">
+                        <i class="fa-brands fa-tiktok"></i> Seguir en TikTok
+                    </a>
+                    <a href="https://www.instagram.com/texfashiondotaciones?igsh=cDQycjlvcWl4djY5&igsi=cDQycjlvcWl4djY5" target="_blank" class="social-btn-link instagram">
+                        <i class="fa-brands fa-instagram"></i> Seguir en Instagram
+                    </a>
+                    <a href="https://www.facebook.com/share/19MrXRuSct/" target="_blank" class="social-btn-link facebook">
+                        <i class="fa-brands fa-facebook-f"></i> Seguir en Facebook
+                    </a>
+                </div>
+            </div>
+
+            <!-- REGISTRO DE COMPROBANTE O ENVIAR DM -->
+            <div style="background: rgba(0, 0, 0, 0.3); border-radius: 12px; padding: 12px;">
+                <p style="font-size: 0.8rem; font-weight: 700; color: #ffb700; margin-bottom: 8px;">
+                    2️⃣ Registra el comprobante aquí o envíalo por DM:
+                </p>
+                <button class="btn-comprobante" onclick="abrirFormularioComprobante()">
+                    📋 Llenar Comprobante de Referidos
+                </button>
+                <div class="social-buttons-grid" style="margin-top: 10px;">
+                    <a href="https://www.tiktok.com/@tex_fashion?_r=1&_t=ZS-98xZasYCW8a" target="_blank" class="social-btn-link tiktok">
+                        <i class="fa-brands fa-tiktok"></i> DM TikTok
+                    </a>
+                    <a href="https://www.instagram.com/texfashiondotaciones?igsh=cDQycjlvcWl4djY5&igsi=cDQycjlvcWl4djY5" target="_blank" class="social-btn-link instagram">
+                        <i class="fa-brands fa-instagram"></i> DM Instagram
+                    </a>
+                    <a href="https://www.facebook.com/share/19MrXRuSct/" target="_blank" class="social-btn-link facebook">
+                        <i class="fa-brands fa-facebook-f"></i> DM Facebook
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="pin-input-group">
+            <label style="font-size: 0.85rem; font-weight: 700; color: #ffb700;">INGRESA TU CÓDIGO DE ACCESO:</label>
+            <input type="text" id="inputPin" class="pin-input" placeholder="" autocomplete="off">
+            <button id="btnVerificar" class="btn-next">
+                DESBLOQUEAR Y JUGAR ➔
+            </button>
+            <p class="error-msg" id="errorMsg">⚠️ Código incorrecto o no válido. Intenta nuevamente.</p>
+        </div>
+    </div>
+
+    <!-- PASO 2: JUEGO DE CAJAS -->
+    <div class="game-section" id="gameSection">
+        <p class="subtitle" style="margin-bottom: 15px;">¡Selecciona 1 de las 8 cajas para probar tu suerte!</p>
+        
+        <div class="grid-container" id="gridCajas">
+            <div class="box" onclick="seleccionarCaja(this, 0)">📦</div>
+            <div class="box" onclick="seleccionarCaja(this, 1)">📦</div>
+            <div class="box" onclick="seleccionarCaja(this, 2)">📦</div>
+            <div class="box" onclick="seleccionarCaja(this, 3)">📦</div>
+            <div class="box" onclick="seleccionarCaja(this, 4)">📦</div>
+            <div class="box" onclick="seleccionarCaja(this, 5)">📦</div>
+            <div class="box" onclick="seleccionarCaja(this, 6)">📦</div>
+            <div class="box" onclick="seleccionarCaja(this, 7)">📦</div>
+        </div>
+    </div>
+
+    <!-- MODAL PRINCIPAL -->
+    <div class="modal" id="modal">
+        <div class="modal-content" id="modalContent">
+            <!-- Contenido dinámico -->
+        </div>
+    </div>
+
+    <script>
+        const CODIGO_CORRECTO = "QUIERO GANAR";
+
+        let juegoActivo = false;
+        let cajaSeleccionada = null;
+        let listaPremiosMezclada = [];
+
+        const PREMIOS_BASE = [
+            { tipo: "ganador", titulo: "🎉 ¡LO LOGRASTE! 🎉", texto: "¡Ganaste: Agenda + Cajita de Esfero!", icono: "🎁", color: "#002b7f", productos: [{ nombre: "Agenda", imagen: "ba7a3767-f265-4594-b241-528aee34c1a6-removebg-preview.png" }, { nombre: "Cajita de Esfero", imagen: "imagenes/1be32d3b-2b49-4eda-bfd5-b663ae47509a-removebg-preview.png" }] },
+            { tipo: "ganador", titulo: "🎉 ¡LO LOGRASTE! 🎉", texto: "¡Ganaste: Pocillo + Llavero!", icono: "🎁", color: "#002b7f", productos: [{ nombre: "Pocillo", imagen: "imagenes/8c24c4fd-5826-4027-bdf3-8bbc229cabb4-removebg-preview.png" }, { nombre: "Llavero", imagen: "imagenes/6bd29286-56d1-45eb-8347-0609e7328646-removebg-preview.png" }] },
+            { tipo: "ganador", titulo: "🎉 ¡LO LOGRASTE! 🎉", texto: "¡Ganaste: Caramañola + 2 Esferos!", icono: "🎁", color: "#002b7f", productos: [{ nombre: "Caramañola", imagen: "Mesa de trabajo 1.png" }, { nombre: "2 Esferos", imagen: "imagenes/8acdb9dd-d2d8-41b5-bdf6-eabee6473cdb-removebg-preview.png" }] },
+            { tipo: "perdedor", titulo: "🔄 SIGUE INTENTANDO", texto: "¡No te rindas, vuelve pronto!", icono: "💪", color: "#002b7f" },
+            { tipo: "perdedor", titulo: "😅 LO SIENTO", texto: "La próxima será. ¡Gracias por participar!", icono: "🙈", color: "#d97706" },
+            { tipo: "perdedor", titulo: "❌ UPSSS PERDISTE", texto: "¡Esta vez no hubo suerte!", icono: "❌", color: "#ff4d4d" },
+            { tipo: "perdedor", titulo: "✨ CASI CASI GANAS", texto: "¡Estuviste a un paso!", icono: "⚡", color: "#d97706" },
+            { tipo: "perdedor", titulo: "⭐ ESTUVISTE CERCA", texto: "¡Casi lo consigues!", icono: "🎯", color: "#002b7f" }
+        ];
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const btnVerificar = document.getElementById('btnVerificar');
+            if (btnVerificar) {
+                btnVerificar.addEventListener('click', validarPin);
+            }
+        });
+
+        function abrirFormularioComprobante() {
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modalContent');
+
+            modalContent.innerHTML = `
+                <h2>📄 Comprobante de Referidos</h2>
+                <p style="font-size: 0.85rem; color: #4a5568; margin-bottom: 15px;">Ingresa tus datos y los usuarios de las 4 personas que comenzaron a seguirnos.</p>
+                
+                <form onsubmit="enviarComprobante(event)">
+                    <div class="form-group">
+                        <label>Tu Nombre Completo / Usuario Principal:</label>
+                        <input type="text" class="form-input" required placeholder="@tu_usuario">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Los 4 Usuarios Referidos:</label>
+                        <div class="referrals-grid">
+                            <input type="text" class="form-input" required placeholder="1. @usuario1">
+                            <input type="text" class="form-input" required placeholder="2. @usuario2">
+                            <input type="text" class="form-input" required placeholder="3. @usuario3">
+                            <input type="text" class="form-input" required placeholder="4. @usuario4">
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 10px;">
+                        <label>Adjuntar Capturas de Pantalla (Opcional):</label>
+                        <input type="file" class="form-input" multiple accept="image/*">
+                    </div>
+
+                    <div style="margin-top: 15px;">
+                        <button type="submit" class="btn-modal">Enviar y Solicitar Código</button>
+                        <button type="button" class="btn-modal btn-secondary" onclick="cerrarModal()">Cancelar</button>
+                    </div>
+                </form>
+            `;
+
+            modal.style.display = 'flex';
+        }
+
+        function enviarComprobante(event) {
+            event.preventDefault();
+            const modalContent = document.getElementById('modalContent');
+
+            modalContent.innerHTML = `
+                <h2>✅ COMPROBANTE RECIBIDO</h2>
+                <div style="font-size: 4rem; margin: 10px 0;">📩</div>
+                <p style="font-size: 0.95rem; color: #4a5568; margin-bottom: 15px;">
+                    ¡Tus datos han sido registrados! Estamos verificando que los 4 usuarios nos sigan. Te enviaremos tu clave de acceso por mensaje directo a la brevedad.
+                </p>
+                <button class="btn-modal" onclick="cerrarModal()">Entendido</button>
+            `;
+        }
+
+        function validarPin() {
+            const pinIngresado = document.getElementById('inputPin').value.trim().toUpperCase();
+            const errorMsg = document.getElementById('errorMsg');
+
+            if (pinIngresado !== CODIGO_CORRECTO) {
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            errorMsg.style.display = 'none';
+            document.getElementById('instructionsCard').style.display = 'none';
+            document.getElementById('gameSection').style.display = 'flex';
+            
+            juegoActivo = true;
+            prepararPremios();
+        }
+
+        function mezclarPremios(array) {
+            return [...array].sort(() => Math.random() - 0.5);
+        }
+
+        function prepararPremios() {
+            listaPremiosMezclada = mezclarPremios(PREMIOS_BASE);
+        }
+
+        function seleccionarCaja(elemento, index) {
+            if (!juegoActivo) return;
+            cajaSeleccionada = index;
+
+            elemento.classList.add('box-bounce');
+
+            setTimeout(() => {
+                elemento.classList.remove('box-bounce');
+                confirmarSeleccion();
+            }, 600);
+        }
+
+        function confirmarSeleccion() {
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modalContent');
+
+            modalContent.innerHTML = `
+                <h2>¿Seguro que quieres abrir esta caja?</h2>
+                <p style="font-size: 0.9rem; color: #4a5568; margin-top: 5px;">Recuerda que tu código te otorga 1 única oportunidad.</p>
+                <div style="font-size: 5rem; margin: 15px 0;">📦</div>
+                <button class="btn-modal" onclick="revelarResultado()">¡Sí, abrir!</button>
+                <button class="btn-modal btn-secondary" onclick="cerrarModal()">Elegir otra</button>
+            `;
+
+            modal.style.display = 'flex';
+        }
+
+        function cerrarModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        function revelarResultado() {
+            const modalContent = document.getElementById('modalContent');
+            const premio = listaPremiosMezclada[cajaSeleccionada];
+            const cajas = document.querySelectorAll('.box');
+
+            juegoActivo = false;
+            cajas.forEach(caja => caja.classList.add('disabled'));
+
+            if (premio.tipo === "ganador") {
+                let comboHTML = `<div class="combo-grid">`;
+                premio.productos.forEach((prod) => {
+                    comboHTML += `
+                        <div class="product-card">
+                            <img src="${prod.imagen}" alt="${prod.nombre}">
+                            <p>${prod.nombre}</p>
+                        </div>
+                    `;
+                });
+                comboHTML += `</div>`;
+
+                modalContent.innerHTML = `
+                    <h2 class="bounce-title" style="color: ${premio.color}; font-size: 1.8rem;">${premio.titulo}</h2>
+                    <p style="color: ${premio.color}; font-size: 1.2rem; font-weight: 900; margin-top: 10px;">${premio.texto}</p>
+                    ${comboHTML}
+                    <button class="btn-modal" onclick="confirmarReclamo()">¡Reclamar Premio!</button>
+                `;
+
+            } else {
+                modalContent.innerHTML = `
+                    <h2 style="color: ${premio.color}; font-size: 1.8rem;">💥 ¡GRACIAS POR PARTICIPAR! 💥</h2>
+                    <div style="font-size: 5rem; margin: 15px 0;">${premio.icono}</div>
+                    <p style="color: ${premio.color}; font-size: 1.5rem; font-weight: 900;">${premio.titulo}</p>
+                    <p style="font-size: 0.95rem; color: #4a5568; margin-top: 5px;">${premio.texto}</p>
+                    <br>
+                    <button class="btn-modal" onclick="reiniciarParaSiguiente()">Siguiente Participante ➔</button>
+                `;
+            }
+
+            cajas[cajaSeleccionada].innerText = premio.icono;
+        }
+
+        function confirmarReclamo() {
+            const modalContent = document.getElementById('modalContent');
+            modalContent.innerHTML = `
+                <h2>¡PREMIO REGISTRADO! 🎁</h2>
+                <p style="font-size: 0.95rem; color: #4a5568; margin: 15px 0;">
+                    Comunícate con nosotros por mensaje directo en nuestras redes sociales confirmando tu victoria para programar la entrega de tu premio.
+                </p>
+                <button class="btn-modal" onclick="reiniciarParaSiguiente()">Siguiente Participante ➔</button>
+            `;
+        }
+
+        function reiniciarParaSiguiente() {
+            document.getElementById('inputPin').value = "";
+            
+            const cajas = document.querySelectorAll('.box');
+            cajas.forEach(caja => {
+                caja.innerText = "📦";
+                caja.classList.remove('disabled');
+            });
+
+            cerrarModal();
+            document.getElementById('gameSection').style.display = 'none';
+            document.getElementById('instructionsCard').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
